@@ -1,0 +1,13 @@
+{
+  "name": "love2d-project",
+  "version": "1.0.0",
+  "description": "Love2D game project",
+  "scripts": {
+    "dev": "echo 'This is a Love2D project. To run locally, install Love2D and run: love .'",
+    "build": "echo 'This is a Love2D project. No build step required.'",
+    "start": "echo 'This is a Love2D project. To run locally, install Love2D and run: love .'"
+  },
+  "keywords": ["love2d", "lua", "game"],
+  "author": "",
+  "license": "MIT"
+}
