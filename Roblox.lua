@@ -512,7 +512,7 @@ local function createScriptsContent()
     end
 end
 
--- Executor tab content
+-- Executor tab content - IMPROVED VERSION
 local function createExecutorContent()
     local executorFrame = contentFrames["Executor"]
     
@@ -528,82 +528,257 @@ local function createExecutorContent()
     executorTitle.ZIndex = 103
     executorTitle.Parent = executorFrame
     
+    -- Code editor container
+    local editorContainer = Instance.new("Frame")
+    editorContainer.Size = UDim2.new(1, 0, 0, 180)
+    editorContainer.Position = UDim2.new(0, 0, 0, 50)
+    editorContainer.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    editorContainer.BorderSizePixel = 0
+    editorContainer.ZIndex = 103
+    editorContainer.Parent = executorFrame
+    
+    local editorCorner = Instance.new("UICorner")
+    editorCorner.CornerRadius = UDim.new(0, 8)
+    editorCorner.Parent = editorContainer
+    
+    -- Line numbers frame
+    local lineNumberFrame = Instance.new("Frame")
+    lineNumberFrame.Size = UDim2.new(0, 30, 1, 0)
+    lineNumberFrame.Position = UDim2.new(0, 0, 0, 0)
+    lineNumberFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+    lineNumberFrame.BorderSizePixel = 0
+    lineNumberFrame.ZIndex = 104
+    lineNumberFrame.Parent = editorContainer
+    
+    local lineCorner = Instance.new("UICorner")
+    lineCorner.CornerRadius = UDim.new(0, 8)
+    lineCorner.Parent = lineNumberFrame
+    
+    -- Line numbers text
+    local lineNumbers = Instance.new("TextLabel")
+    lineNumbers.Name = "LineNumbers"
+    lineNumbers.Size = UDim2.new(1, -5, 1, -10)
+    lineNumbers.Position = UDim2.new(0, 0, 0, 5)
+    lineNumbers.BackgroundTransparency = 1
+    lineNumbers.Text = "1\n2\n3\n4\n5\n6\n7\n8\n9"
+    lineNumbers.TextColor3 = Color3.fromRGB(100, 100, 100)
+    lineNumbers.TextSize = 12
+    lineNumbers.Font = Enum.Font.Code
+    lineNumbers.TextXAlignment = Enum.TextXAlignment.Center
+    lineNumbers.TextYAlignment = Enum.TextYAlignment.Top
+    lineNumbers.ZIndex = 105
+    lineNumbers.Parent = lineNumberFrame
+    
+    -- Code input box
     local codeBox = Instance.new("TextBox")
-    codeBox.Size = UDim2.new(1, 0, 0, 200)
-    codeBox.Position = UDim2.new(0, 0, 0, 50)
-    codeBox.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-    codeBox.Text = "-- Enter your Lua code here\nprint('Hello, World!')"
+    codeBox.Name = "CodeBox"
+    codeBox.Size = UDim2.new(1, -40, 1, -10)
+    codeBox.Position = UDim2.new(0, 35, 0, 5)
+    codeBox.BackgroundTransparency = 1
+    codeBox.Text = "-- Enter your Lua code here\nprint('Hello, World!')\nwait(1)\nprint('Script executed successfully!')"
     codeBox.TextColor3 = Color3.fromRGB(255, 255, 255)
-    codeBox.TextSize = 14
+    codeBox.TextSize = 12
     codeBox.Font = Enum.Font.Code
     codeBox.TextXAlignment = Enum.TextXAlignment.Left
     codeBox.TextYAlignment = Enum.TextYAlignment.Top
     codeBox.MultiLine = true
     codeBox.ClearTextOnFocus = false
     codeBox.BorderSizePixel = 0
-    codeBox.ZIndex = 103
-    codeBox.Parent = executorFrame
+    codeBox.ZIndex = 104
+    codeBox.Parent = editorContainer
     
-    local codeCorner = Instance.new("UICorner")
-    codeCorner.CornerRadius = UDim.new(0, 8)
-    codeCorner.Parent = codeBox
+    -- Update line numbers when text changes
+    local function updateLineNumbers()
+        local lines = {}
+        local lineCount = 1
+        for _ in codeBox.Text:gmatch("\n") do
+            lineCount = lineCount + 1
+        end
+        
+        for i = 1, math.max(lineCount, 9) do
+            table.insert(lines, tostring(i))
+        end
+        
+        lineNumbers.Text = table.concat(lines, "\n")
+    end
     
-    local codePadding = Instance.new("UIPadding")
-    codePadding.PaddingTop = UDim.new(0, 10)
-    codePadding.PaddingLeft = UDim.new(0, 10)
-    codePadding.PaddingRight = UDim.new(0, 10)
-    codePadding.PaddingBottom = UDim.new(0, 10)
-    codePadding.Parent = codeBox
+    codeBox:GetPropertyChangedSignal("Text"):Connect(updateLineNumbers)
     
+    -- Status display
+    local statusFrame = Instance.new("Frame")
+    statusFrame.Size = UDim2.new(1, 0, 0, 25)
+    statusFrame.Position = UDim2.new(0, 0, 0, 240)
+    statusFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+    statusFrame.BorderSizePixel = 0
+    statusFrame.ZIndex = 103
+    statusFrame.Parent = executorFrame
+    
+    local statusCorner = Instance.new("UICorner")
+    statusCorner.CornerRadius = UDim.new(0, 6)
+    statusCorner.Parent = statusFrame
+    
+    local statusLabel = Instance.new("TextLabel")
+    statusLabel.Name = "StatusLabel"
+    statusLabel.Size = UDim2.new(1, -10, 1, 0)
+    statusLabel.Position = UDim2.new(0, 5, 0, 0)
+    statusLabel.BackgroundTransparency = 1
+    statusLabel.Text = "Ready to execute"
+    statusLabel.TextColor3 = Color3.fromRGB(100, 200, 255)
+    statusLabel.TextSize = 11
+    statusLabel.Font = Enum.Font.Gotham
+    statusLabel.TextXAlignment = Enum.TextXAlignment.Left
+    statusLabel.ZIndex = 104
+    statusLabel.Parent = statusFrame
+    
+    -- Button container
+    local buttonContainer = Instance.new("Frame")
+    buttonContainer.Size = UDim2.new(1, 0, 0, 35)
+    buttonContainer.Position = UDim2.new(0, 0, 0, 275)
+    buttonContainer.BackgroundTransparency = 1
+    buttonContainer.ZIndex = 103
+    buttonContainer.Parent = executorFrame
+    
+    -- Execute button
     local executeButton = Instance.new("TextButton")
-    executeButton.Size = UDim2.new(0, 100, 0, 35)
-    executeButton.Position = UDim2.new(0, 0, 0, 260)
-    executeButton.BackgroundColor3 = Color3.fromRGB(255, 100, 200)
-    executeButton.Text = "Execute"
+    executeButton.Size = UDim2.new(0, 100, 1, 0)
+    executeButton.Position = UDim2.new(0, 0, 0, 0)
+    executeButton.BackgroundColor3 = Color3.fromRGB(50, 200, 50)
+    executeButton.Text = "▶ Execute"
     executeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
     executeButton.TextSize = 14
     executeButton.Font = Enum.Font.GothamBold
     executeButton.BorderSizePixel = 0
-    executeButton.ZIndex = 103
-    executeButton.Parent = executorFrame
+    executeButton.ZIndex = 104
+    executeButton.Parent = buttonContainer
     
     local executeCorner = Instance.new("UICorner")
     executeCorner.CornerRadius = UDim.new(0, 8)
     executeCorner.Parent = executeButton
     
+    -- Clear button
     local clearButton = Instance.new("TextButton")
-    clearButton.Size = UDim2.new(0, 80, 0, 35)
-    clearButton.Position = UDim2.new(0, 110, 0, 260)
+    clearButton.Size = UDim2.new(0, 80, 1, 0)
+    clearButton.Position = UDim2.new(0, 110, 0, 0)
     clearButton.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
     clearButton.Text = "Clear"
     clearButton.TextColor3 = Color3.fromRGB(255, 255, 255)
     clearButton.TextSize = 14
     clearButton.Font = Enum.Font.GothamBold
     clearButton.BorderSizePixel = 0
-    clearButton.ZIndex = 103
-    clearButton.Parent = executorFrame
+    clearButton.ZIndex = 104
+    clearButton.Parent = buttonContainer
     
     local clearCorner = Instance.new("UICorner")
     clearCorner.CornerRadius = UDim.new(0, 8)
     clearCorner.Parent = clearButton
     
+    -- Save button
+    local saveButton = Instance.new("TextButton")
+    saveButton.Size = UDim2.new(0, 70, 1, 0)
+    saveButton.Position = UDim2.new(0, 200, 0, 0)
+    saveButton.BackgroundColor3 = Color3.fromRGB(255, 200, 100)
+    saveButton.Text = "Save"
+    saveButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+    saveButton.TextSize = 14
+    saveButton.Font = Enum.Font.GothamBold
+    saveButton.BorderSizePixel = 0
+    saveButton.ZIndex = 104
+    saveButton.Parent = buttonContainer
+    
+    local saveCorner = Instance.new("UICorner")
+    saveCorner.CornerRadius = UDim.new(0, 8)
+    saveCorner.Parent = saveButton
+    
+    -- Load button
+    local loadButton = Instance.new("TextButton")
+    loadButton.Size = UDim2.new(0, 70, 1, 0)
+    loadButton.Position = UDim2.new(0, 280, 0, 0)
+    loadButton.BackgroundColor3 = Color3.fromRGB(200, 100, 255)
+    loadButton.Text = "Load"
+    loadButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+    loadButton.TextSize = 14
+    loadButton.Font = Enum.Font.GothamBold
+    loadButton.BorderSizePixel = 0
+    loadButton.ZIndex = 104
+    loadButton.Parent = buttonContainer
+    
+    local loadCorner = Instance.new("UICorner")
+    loadCorner.CornerRadius = UDim.new(0, 8)
+    loadCorner.Parent = loadButton
+    
+    -- Script storage
+    local savedScript = ""
+    
     -- Button functionality
     executeButton.MouseButton1Click:Connect(function()
         local code = codeBox.Text
-        if code and code ~= "" then
-            addLog("Code executed", "success")
-            -- In a real executor, you would run the code here
-            -- For safety, we just log it
+        if code and code ~= "" and code ~= "-- Enter your Lua code here" then
+            statusLabel.Text = "Executing..."
+            statusLabel.TextColor3 = Color3.fromRGB(255, 200, 100)
+            
+            -- Execute the code safely
+            local success, result = pcall(function()
+                return loadstring(code)()
+            end)
+            
+            if success then
+                statusLabel.Text = "Execution successful"
+                statusLabel.TextColor3 = Color3.fromRGB(50, 200, 50)
+                addLog("Code executed successfully", "success")
+            else
+                statusLabel.Text = "Error: " .. tostring(result)
+                statusLabel.TextColor3 = Color3.fromRGB(255, 100, 100)
+                addLog("Execution error: " .. tostring(result), "error")
+            end
+            
+            -- Reset status after 3 seconds
+            wait(3)
+            statusLabel.Text = "Ready to execute"
+            statusLabel.TextColor3 = Color3.fromRGB(100, 200, 255)
+        else
+            statusLabel.Text = "No code to execute"
+            statusLabel.TextColor3 = Color3.fromRGB(255, 200, 100)
+            addLog("No code provided for execution", "warning")
         end
     end)
     
     clearButton.MouseButton1Click:Connect(function()
         codeBox.Text = "-- Enter your Lua code here\n"
+        statusLabel.Text = "Editor cleared"
+        statusLabel.TextColor3 = Color3.fromRGB(100, 200, 255)
         addLog("Code editor cleared", "info")
+        updateLineNumbers()
     end)
     
-    addButtonAnimations(executeButton, Color3.fromRGB(255, 100, 200), Color3.fromRGB(255, 120, 220))
+    saveButton.MouseButton1Click:Connect(function()
+        savedScript = codeBox.Text
+        statusLabel.Text = "Script saved to memory"
+        statusLabel.TextColor3 = Color3.fromRGB(100, 200, 255)
+        addLog("Script saved to memory", "success")
+    end)
+    
+    loadButton.MouseButton1Click:Connect(function()
+        if savedScript ~= "" then
+            codeBox.Text = savedScript
+            statusLabel.Text = "Script loaded from memory"
+            statusLabel.TextColor3 = Color3.fromRGB(100, 200, 255)
+            addLog("Script loaded from memory", "success")
+            updateLineNumbers()
+        else
+            statusLabel.Text = "No saved script found"
+            statusLabel.TextColor3 = Color3.fromRGB(255, 200, 100)
+            addLog("No saved script to load", "warning")
+        end
+    end)
+    
+    -- Add button animations
+    addButtonAnimations(executeButton, Color3.fromRGB(50, 200, 50), Color3.fromRGB(70, 220, 70))
     addButtonAnimations(clearButton, Color3.fromRGB(100, 100, 100), Color3.fromRGB(120, 120, 120))
+    addButtonAnimations(saveButton, Color3.fromRGB(255, 200, 100), Color3.fromRGB(255, 220, 120))
+    addButtonAnimations(loadButton, Color3.fromRGB(200, 100, 255), Color3.fromRGB(220, 120, 255))
+    
+    -- Initialize line numbers
+    updateLineNumbers()
 end
 
 -- Settings and About content
