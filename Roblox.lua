@@ -109,7 +109,7 @@ title.Name = "Title"
 title.Size = UDim2.new(0, 200, 1, 0)
 title.Position = UDim2.new(0, 15, 0, 0)
 title.BackgroundTransparency = 1
-title.Text = "Enhanced GUI"
+title.Text = "Test"
 title.TextColor3 = Color3.fromRGB(100, 200, 255)
 title.TextSize = 18
 title.TextXAlignment = Enum.TextXAlignment.Left
@@ -304,7 +304,7 @@ local function createHomeContent()
     homeDesc.Size = UDim2.new(1, 0, 0, 50)
     homeDesc.Position = UDim2.new(0, 0, 0, 40)
     homeDesc.BackgroundTransparency = 1
-    homeDesc.Text = "Enhanced GUI with smooth animations,\nno overlapping, and improved functionality."
+    homeDesc.Text = "Test with smooth animations,\nno overlapping, and improved functionality."
     homeDesc.TextColor3 = Color3.fromRGB(150, 150, 150)
     homeDesc.TextSize = 13
     homeDesc.TextXAlignment = Enum.TextXAlignment.Left
@@ -661,7 +661,7 @@ local function createAboutContent()
     aboutTitle.Parent = aboutFrame
     
     local aboutInfo = {
-        "Enhanced GUI v2.1",
+        "Test v2.1",
         "Built for Roblox with Lua",
         "",
         "Features:",
@@ -680,9 +680,9 @@ local function createAboutContent()
         infoLabel.BackgroundTransparency = 1
         infoLabel.Text = info
         infoLabel.TextColor3 = info:find("•") and Color3.fromRGB(150, 150, 150) or Color3.fromRGB(200, 200, 200)
-        infoLabel.TextSize = info == "" and 5 or (info:find("Enhanced GUI") and 16 or 13)
+        infoLabel.TextSize = info == "" and 5 or (info:find("Test") and 16 or 13)
         infoLabel.TextXAlignment = Enum.TextXAlignment.Left
-        infoLabel.Font = info:find("Enhanced GUI") and Enum.Font.GothamBold or Enum.Font.Gotham
+        infoLabel.Font = info:find("Test") and Enum.Font.GothamBold or Enum.Font.Gotham
         infoLabel.ZIndex = 103
         infoLabel.Parent = aboutFrame
     end
@@ -931,7 +931,7 @@ animateStatusDot()
 -- Add initial logs
 addLog("GUI initialized successfully", "success")
 addLog("All systems operational", "info")
-addLog("Welcome to Enhanced GUI v2.1", "info")
+addLog("Welcome to Test GUI v2.1", "info")
 
 -- Entrance animation
 mainFrame.Size = UDim2.new(0, 0, 0, 0)
@@ -945,4 +945,4 @@ local entranceTween = TweenService:Create(mainFrame, TweenInfo.new(0.6, Enum.Eas
 })
 entranceTween:Play()
 
-print("Enhanced GUI v2.1 loaded successfully - No overlapping, improved functionality!")
+print("Test v2.1 loaded successfully - No overlapping, improved functionality!")
