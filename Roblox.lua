@@ -44,7 +44,7 @@ end
 
 -- Create main ScreenGui
 local screenGui = Instance.new("ScreenGui")
-screenGui.Name = "Test GUI"
+screenGui.Name = "MyGUI"
 screenGui.ResetOnSpawn = false
 screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 screenGui.Parent = playerGui
@@ -106,10 +106,10 @@ headerFix.Parent = header
 -- Title
 local title = Instance.new("TextLabel")
 title.Name = "Title"
-title.Size = UDim2.new(0, 200, 1, 0)
+title.Size = UDim2.new(0, 150, 1, 0)
 title.Position = UDim2.new(0, 15, 0, 0)
 title.BackgroundTransparency = 1
-title.Text = "Test"
+title.Text = "My GUI"
 title.TextColor3 = Color3.fromRGB(100, 200, 255)
 title.TextSize = 18
 title.TextXAlignment = Enum.TextXAlignment.Left
@@ -117,10 +117,10 @@ title.Font = Enum.Font.GothamBold
 title.ZIndex = 102
 title.Parent = header
 
--- Status indicator
+-- Status indicator - FIXED POSITIONING
 local statusFrame = Instance.new("Frame")
-statusFrame.Size = UDim2.new(0, 70, 1, 0)
-statusFrame.Position = UDim2.new(1, -120, 0, 0)
+statusFrame.Size = UDim2.new(0, 80, 1, 0)
+statusFrame.Position = UDim2.new(1, -200, 0, 0) -- Moved further left to avoid overlap
 statusFrame.BackgroundTransparency = 1
 statusFrame.ZIndex = 102
 statusFrame.Parent = header
@@ -139,10 +139,10 @@ dotCorner.CornerRadius = UDim.new(0.5, 0)
 dotCorner.Parent = statusDot
 
 local statusText = Instance.new("TextLabel")
-statusText.Size = UDim2.new(0, 50, 1, 0)
+statusText.Size = UDim2.new(0, 60, 1, 0)
 statusText.Position = UDim2.new(0, 15, 0, 0)
 statusText.BackgroundTransparency = 1
-statusText.Text = "Online"
+statusText.Text = "Connected"
 statusText.TextColor3 = Color3.fromRGB(150, 150, 150)
 statusText.TextSize = 12
 statusText.Font = Enum.Font.Gotham
@@ -206,7 +206,7 @@ contentContainer.ClipsDescendants = true
 contentContainer.ZIndex = 101
 contentContainer.Parent = mainFrame
 
--- Tab system
+-- Tab system - MORE HUMAN NAMES
 local tabs = {
     {name = "Home", icon = "🏠", color = Color3.fromRGB(100, 200, 255)},
     {name = "Scripts", icon = "📜", color = Color3.fromRGB(255, 200, 100)},
@@ -284,7 +284,7 @@ for _, tab in ipairs(tabs) do
     contentFrames[tab.name] = frame
 end
 
--- Home tab content
+-- Home tab content - MORE HUMAN TEXT
 local function createHomeContent()
     local homeFrame = contentFrames["Home"]
     
@@ -292,7 +292,7 @@ local function createHomeContent()
     homeTitle.Size = UDim2.new(1, 0, 0, 35)
     homeTitle.Position = UDim2.new(0, 0, 0, 0)
     homeTitle.BackgroundTransparency = 1
-    homeTitle.Text = "Welcome Back!"
+    homeTitle.Text = "Hey there!"
     homeTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
     homeTitle.TextSize = 22
     homeTitle.TextXAlignment = Enum.TextXAlignment.Left
@@ -304,7 +304,7 @@ local function createHomeContent()
     homeDesc.Size = UDim2.new(1, 0, 0, 50)
     homeDesc.Position = UDim2.new(0, 0, 0, 40)
     homeDesc.BackgroundTransparency = 1
-    homeDesc.Text = "Test with smooth animations,\nno overlapping, and improved functionality."
+    homeDesc.Text = "Everything's running smoothly.\nFeel free to explore the different tabs!"
     homeDesc.TextColor3 = Color3.fromRGB(150, 150, 150)
     homeDesc.TextSize = 13
     homeDesc.TextXAlignment = Enum.TextXAlignment.Left
@@ -322,9 +322,9 @@ local function createHomeContent()
     statsFrame.Parent = homeFrame
     
     local statsData = {
-        {title = "Active", value = "1", color = Color3.fromRGB(100, 200, 255)},
-        {title = "Status", value = "OK", color = Color3.fromRGB(50, 200, 50)},
-        {title = "Uptime", value = "24h", color = Color3.fromRGB(255, 200, 100)}
+        {title = "Sessions", value = "1", color = Color3.fromRGB(100, 200, 255)},
+        {title = "Status", value = "Good", color = Color3.fromRGB(50, 200, 50)},
+        {title = "Runtime", value = "2h", color = Color3.fromRGB(255, 200, 100)}
     }
     
     for i, stat in ipairs(statsData) do
@@ -368,7 +368,7 @@ local function createHomeContent()
     logTitle.Size = UDim2.new(1, 0, 0, 25)
     logTitle.Position = UDim2.new(0, 0, 0, 185)
     logTitle.BackgroundTransparency = 1
-    logTitle.Text = "Recent Activity"
+    logTitle.Text = "What's been happening"
     logTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
     logTitle.TextSize = 16
     logTitle.TextXAlignment = Enum.TextXAlignment.Left
@@ -402,7 +402,7 @@ local function createHomeContent()
     logScrollFrame.Parent = logContainer
 end
 
--- Scripts tab content
+-- Scripts tab content - MORE HUMAN DESCRIPTIONS
 local function createScriptsContent()
     local scriptsFrame = contentFrames["Scripts"]
     
@@ -410,7 +410,7 @@ local function createScriptsContent()
     scriptsTitle.Size = UDim2.new(1, 0, 0, 35)
     scriptsTitle.Position = UDim2.new(0, 0, 0, 0)
     scriptsTitle.BackgroundTransparency = 1
-    scriptsTitle.Text = "Script Library"
+    scriptsTitle.Text = "Ready-made Scripts"
     scriptsTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
     scriptsTitle.TextSize = 22
     scriptsTitle.TextXAlignment = Enum.TextXAlignment.Left
@@ -422,7 +422,7 @@ local function createScriptsContent()
     scriptsDesc.Size = UDim2.new(1, 0, 0, 25)
     scriptsDesc.Position = UDim2.new(0, 0, 0, 40)
     scriptsDesc.BackgroundTransparency = 1
-    scriptsDesc.Text = "Pre-built scripts for common tasks"
+    scriptsDesc.Text = "Some useful scripts I've put together"
     scriptsDesc.TextColor3 = Color3.fromRGB(150, 150, 150)
     scriptsDesc.TextSize = 13
     scriptsDesc.TextXAlignment = Enum.TextXAlignment.Left
@@ -430,13 +430,13 @@ local function createScriptsContent()
     scriptsDesc.ZIndex = 103
     scriptsDesc.Parent = scriptsFrame
     
-    -- Script buttons
+    -- Script buttons - MORE HUMAN NAMES
     local scriptData = {
-        {name = "Speed Boost", desc = "Increases walkspeed", color = Color3.fromRGB(100, 200, 255)},
-        {name = "Jump Power", desc = "Enhances jump height", color = Color3.fromRGB(255, 200, 100)},
-        {name = "Fly Script", desc = "Enables flight mode", color = Color3.fromRGB(200, 100, 255)},
-        {name = "Teleport", desc = "Quick teleportation", color = Color3.fromRGB(100, 255, 200)},
-        {name = "God Mode", desc = "Invincibility toggle", color = Color3.fromRGB(255, 100, 100)}
+        {name = "Speed Boost", desc = "Makes you run faster", color = Color3.fromRGB(100, 200, 255)},
+        {name = "Jump Higher", desc = "Increases your jump power", color = Color3.fromRGB(255, 200, 100)},
+        {name = "Fly Around", desc = "Let's you fly in the game", color = Color3.fromRGB(200, 100, 255)},
+        {name = "Quick Travel", desc = "Teleport to different spots", color = Color3.fromRGB(100, 255, 200)},
+        {name = "God Mode", desc = "Makes you invincible", color = Color3.fromRGB(255, 100, 100)}
     }
     
     for i, script in ipairs(scriptData) do
@@ -495,7 +495,7 @@ local function createScriptsContent()
         
         -- Add functionality
         executeButton.MouseButton1Click:Connect(function()
-            addLog("Executed: " .. script.name, "success")
+            addLog("Ran " .. script.name, "success")
             
             -- Visual feedback
             local originalColor = executeButton.BackgroundColor3
@@ -520,7 +520,7 @@ local function createExecutorContent()
     executorTitle.Size = UDim2.new(1, 0, 0, 35)
     executorTitle.Position = UDim2.new(0, 0, 0, 0)
     executorTitle.BackgroundTransparency = 1
-    executorTitle.Text = "Script Executor"
+    executorTitle.Text = "Code Runner"
     executorTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
     executorTitle.TextSize = 22
     executorTitle.TextXAlignment = Enum.TextXAlignment.Left
@@ -575,7 +575,7 @@ local function createExecutorContent()
     codeBox.Size = UDim2.new(1, -40, 1, -10)
     codeBox.Position = UDim2.new(0, 35, 0, 5)
     codeBox.BackgroundTransparency = 1
-    codeBox.Text = "-- Enter your Lua code here\nprint('Hello, World!')\nwait(1)\nprint('Script executed successfully!')"
+    codeBox.Text = "-- Write your code here\nprint('Hello there!')\nwait(1)\nprint('Code ran successfully!')"
     codeBox.TextColor3 = Color3.fromRGB(255, 255, 255)
     codeBox.TextSize = 12
     codeBox.Font = Enum.Font.Code
@@ -622,7 +622,7 @@ local function createExecutorContent()
     statusLabel.Size = UDim2.new(1, -10, 1, 0)
     statusLabel.Position = UDim2.new(0, 5, 0, 0)
     statusLabel.BackgroundTransparency = 1
-    statusLabel.Text = "Ready to execute"
+    statusLabel.Text = "Ready to run your code"
     statusLabel.TextColor3 = Color3.fromRGB(100, 200, 255)
     statusLabel.TextSize = 11
     statusLabel.Font = Enum.Font.Gotham
@@ -643,7 +643,7 @@ local function createExecutorContent()
     executeButton.Size = UDim2.new(0, 100, 1, 0)
     executeButton.Position = UDim2.new(0, 0, 0, 0)
     executeButton.BackgroundColor3 = Color3.fromRGB(50, 200, 50)
-    executeButton.Text = "▶ Execute"
+    executeButton.Text = "▶ Run Code"
     executeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
     executeButton.TextSize = 14
     executeButton.Font = Enum.Font.GothamBold
@@ -712,8 +712,8 @@ local function createExecutorContent()
     -- Button functionality
     executeButton.MouseButton1Click:Connect(function()
         local code = codeBox.Text
-        if code and code ~= "" and code ~= "-- Enter your Lua code here" then
-            statusLabel.Text = "Executing..."
+        if code and code ~= "" and code ~= "-- Write your code here" then
+            statusLabel.Text = "Running your code..."
             statusLabel.TextColor3 = Color3.fromRGB(255, 200, 100)
             
             -- Execute the code safely
@@ -722,28 +722,28 @@ local function createExecutorContent()
             end)
             
             if success then
-                statusLabel.Text = "Execution successful"
+                statusLabel.Text = "Code ran perfectly!"
                 statusLabel.TextColor3 = Color3.fromRGB(50, 200, 50)
                 addLog("Code executed successfully", "success")
             else
-                statusLabel.Text = "Error: " .. tostring(result)
+                statusLabel.Text = "Oops: " .. tostring(result)
                 statusLabel.TextColor3 = Color3.fromRGB(255, 100, 100)
-                addLog("Execution error: " .. tostring(result), "error")
+                addLog("Code error: " .. tostring(result), "error")
             end
             
             -- Reset status after 3 seconds
             wait(3)
-            statusLabel.Text = "Ready to execute"
+            statusLabel.Text = "Ready to run your code"
             statusLabel.TextColor3 = Color3.fromRGB(100, 200, 255)
         else
-            statusLabel.Text = "No code to execute"
+            statusLabel.Text = "Nothing to run"
             statusLabel.TextColor3 = Color3.fromRGB(255, 200, 100)
-            addLog("No code provided for execution", "warning")
+            addLog("No code to execute", "warning")
         end
     end)
     
     clearButton.MouseButton1Click:Connect(function()
-        codeBox.Text = "-- Enter your Lua code here\n"
+        codeBox.Text = "-- Write your code here\n"
         statusLabel.Text = "Editor cleared"
         statusLabel.TextColor3 = Color3.fromRGB(100, 200, 255)
         addLog("Code editor cleared", "info")
@@ -752,22 +752,22 @@ local function createExecutorContent()
     
     saveButton.MouseButton1Click:Connect(function()
         savedScript = codeBox.Text
-        statusLabel.Text = "Script saved to memory"
+        statusLabel.Text = "Code saved!"
         statusLabel.TextColor3 = Color3.fromRGB(100, 200, 255)
-        addLog("Script saved to memory", "success")
+        addLog("Script saved", "success")
     end)
     
     loadButton.MouseButton1Click:Connect(function()
         if savedScript ~= "" then
             codeBox.Text = savedScript
-            statusLabel.Text = "Script loaded from memory"
+            statusLabel.Text = "Code loaded!"
             statusLabel.TextColor3 = Color3.fromRGB(100, 200, 255)
-            addLog("Script loaded from memory", "success")
+            addLog("Script loaded", "success")
             updateLineNumbers()
         else
-            statusLabel.Text = "No saved script found"
+            statusLabel.Text = "Nothing saved yet"
             statusLabel.TextColor3 = Color3.fromRGB(255, 200, 100)
-            addLog("No saved script to load", "warning")
+            addLog("No saved script found", "warning")
         end
     end)
     
@@ -781,7 +781,7 @@ local function createExecutorContent()
     updateLineNumbers()
 end
 
--- Settings and About content
+-- Settings and About content - MORE HUMAN TEXT
 local function createSettingsContent()
     local settingsFrame = contentFrames["Settings"]
     
@@ -789,7 +789,7 @@ local function createSettingsContent()
     settingsTitle.Size = UDim2.new(1, 0, 0, 35)
     settingsTitle.Position = UDim2.new(0, 0, 0, 0)
     settingsTitle.BackgroundTransparency = 1
-    settingsTitle.Text = "Settings"
+    settingsTitle.Text = "Preferences"
     settingsTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
     settingsTitle.TextSize = 22
     settingsTitle.TextXAlignment = Enum.TextXAlignment.Left
@@ -798,11 +798,11 @@ local function createSettingsContent()
     settingsTitle.Parent = settingsFrame
     
     local settingsOptions = {
-        "🎨 Theme: Dark Mode",
-        "🔊 Sound Effects: Enabled",
+        "🎨 Theme: Dark (looks better)",
+        "🔊 Sounds: On",
         "📱 Auto-save: Enabled",
-        "🔒 Safe Mode: Enabled",
-        "⚡ Animations: Enabled"
+        "🔒 Safe mode: Always on",
+        "⚡ Smooth animations: Yes"
     }
     
     for i, option in ipairs(settingsOptions) do
@@ -827,7 +827,7 @@ local function createAboutContent()
     aboutTitle.Size = UDim2.new(1, 0, 0, 35)
     aboutTitle.Position = UDim2.new(0, 0, 0, 0)
     aboutTitle.BackgroundTransparency = 1
-    aboutTitle.Text = "About"
+    aboutTitle.Text = "About This GUI"
     aboutTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
     aboutTitle.TextSize = 22
     aboutTitle.TextXAlignment = Enum.TextXAlignment.Left
@@ -836,16 +836,16 @@ local function createAboutContent()
     aboutTitle.Parent = aboutFrame
     
     local aboutInfo = {
-        "Test v2.1",
-        "Built for Roblox with Lua",
+        "My GUI v2.1",
+        "Made for Roblox using Lua",
         "",
-        "Features:",
-        "• Smooth animations",
-        "• No overlapping transitions",
-        "• Draggable interface",
-        "• Script executor",
-        "• Activity logging",
-        "• Modern design"
+        "What it does:",
+        "• Smooth animations that feel nice",
+        "• No annoying overlaps",
+        "• You can drag it around",
+        "• Run your own code",
+        "• Keep track of what's happening",
+        "• Clean, simple design"
     }
     
     for i, info in ipairs(aboutInfo) do
@@ -855,9 +855,9 @@ local function createAboutContent()
         infoLabel.BackgroundTransparency = 1
         infoLabel.Text = info
         infoLabel.TextColor3 = info:find("•") and Color3.fromRGB(150, 150, 150) or Color3.fromRGB(200, 200, 200)
-        infoLabel.TextSize = info == "" and 5 or (info:find("Test") and 16 or 13)
+        infoLabel.TextSize = info == "" and 5 or (info:find("My GUI") and 16 or 13)
         infoLabel.TextXAlignment = Enum.TextXAlignment.Left
-        infoLabel.Font = info:find("Test") and Enum.Font.GothamBold or Enum.Font.Gotham
+        infoLabel.Font = info:find("My GUI") and Enum.Font.GothamBold or Enum.Font.Gotham
         infoLabel.ZIndex = 103
         infoLabel.Parent = aboutFrame
     end
@@ -965,7 +965,7 @@ local function switchTab(tabName)
     end
     
     currentTab = tabName
-    addLog("Switched to " .. tabName .. " tab", "info")
+    addLog("Switched to " .. tabName, "info")
 end
 
 -- Update log display
@@ -1103,10 +1103,10 @@ createAboutContent()
 switchTab("Home")
 animateStatusDot()
 
--- Add initial logs
-addLog("GUI initialized successfully", "success")
-addLog("All systems operational", "info")
-addLog("Welcome to Test GUI v2.1", "info")
+-- Add initial logs - MORE HUMAN
+addLog("GUI started up", "success")
+addLog("Everything looks good", "info")
+addLog("Welcome! Feel free to look around", "info")
 
 -- Entrance animation
 mainFrame.Size = UDim2.new(0, 0, 0, 0)
@@ -1120,4 +1120,4 @@ local entranceTween = TweenService:Create(mainFrame, TweenInfo.new(0.6, Enum.Eas
 })
 entranceTween:Play()
 
-print("Test v2.1 loaded successfully - No overlapping, improved functionality!")
+print("My GUI v2.1 loaded - No overlaps, smooth experience!")
