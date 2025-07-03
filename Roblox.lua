@@ -430,13 +430,23 @@ local function createScriptsContent()
     scriptsDesc.ZIndex = 103
     scriptsDesc.Parent = scriptsFrame
     
-    -- Script buttons - MORE HUMAN NAMES
+    -- Script buttons - MORE HUMAN NAMES INCLUDING HYDROXIDE
     local scriptData = {
         {name = "Speed Boost", desc = "Makes you run faster", color = Color3.fromRGB(100, 200, 255)},
         {name = "Jump Higher", desc = "Increases your jump power", color = Color3.fromRGB(255, 200, 100)},
         {name = "Fly Around", desc = "Let's you fly in the game", color = Color3.fromRGB(200, 100, 255)},
         {name = "Quick Travel", desc = "Teleport to different spots", color = Color3.fromRGB(100, 255, 200)},
-        {name = "God Mode", desc = "Makes you invincible", color = Color3.fromRGB(255, 100, 100)}
+        {name = "God Mode", desc = "Makes you invincible", color = Color3.fromRGB(255, 100, 100)},
+        {name = "Run Hydroxide", desc = "Advanced debugging and analysis tool", color = Color3.fromRGB(255, 150, 50), 
+         script = [[local owner = "Upbolt"
+local branch = "revision"
+
+local function webImport(file)
+    return loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/%s/Hydroxide/%s/%s.lua"):format(owner, branch, file)), file .. '.lua')()
+end
+
+webImport("init")
+webImport("ui/main")]]}
     }
     
     for i, script in ipairs(scriptData) do
@@ -495,7 +505,20 @@ local function createScriptsContent()
         
         -- Add functionality
         executeButton.MouseButton1Click:Connect(function()
-            addLog("Ran " .. script.name, "success")
+            if script.script then
+                -- Execute the actual Hydroxide script
+                local success, result = pcall(function()
+                    return loadstring(script.script)()
+                end)
+                
+                if success then
+                    addLog("Ran " .. script.name .. " successfully", "success")
+                else
+                    addLog("Error running " .. script.name .. ": " .. tostring(result), "error")
+                end
+            else
+                addLog("Ran " .. script.name, "success")
+            end
             
             -- Visual feedback
             local originalColor = executeButton.BackgroundColor3
@@ -510,6 +533,9 @@ local function createScriptsContent()
         addButtonAnimations(executeButton, script.color, Color3.new(script.color.R + 0.1, script.color.G + 0.1, script.color.B + 0.1))
         addButtonAnimations(scriptButton, Color3.fromRGB(40, 40, 40), Color3.fromRGB(50, 50, 50))
     end
+    
+    -- Update canvas size to accommodate new script
+    scriptsFrame.CanvasSize = UDim2.new(0, 0, 0, 75 + #scriptData * 50 + 50)
 end
 
 -- Executor tab content - IMPROVED VERSION
