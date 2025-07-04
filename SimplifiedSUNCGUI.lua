@@ -19,7 +19,7 @@ local testResults = {
     passed = 0,
     timeout = 0,
     failed = 0,
-    total = 72
+    total = 90
 }
 local timeElapsed = 0
 local isTestingActive = false
@@ -183,7 +183,7 @@ progressSubtext.Name = "ProgressSubtext"
 progressSubtext.Size = UDim2.new(0, 120, 0, 20)
 progressSubtext.Position = UDim2.new(0.5, -60, 0.5, 5)
 progressSubtext.BackgroundTransparency = 1
-progressSubtext.Text = "0/72"
+progressSubtext.Text = "0/90"
 progressSubtext.TextColor3 = Color3.fromRGB(150, 150, 150)
 progressSubtext.TextSize = 16
 progressSubtext.Font = Enum.Font.Gotham
@@ -623,7 +623,7 @@ local function runSUNCTest()
     startButton.BackgroundColor3 = Color3.fromRGB(150, 150, 150)
     
     -- Reset results
-    testResults = {passed = 0, timeout = 0, failed = 0, total = 72}
+    testResults = {passed = 0, timeout = 0, failed = 0, total = 90}
     functionLogs = {}
     timeElapsed = 0
     currentProgress = 0
@@ -636,7 +636,7 @@ local function runSUNCTest()
     end
     
     -- Reset progress
-    updateProgress(0, 72)
+    updateProgress(0, 90)
     updateStats()
     
     -- Start time counter
@@ -689,9 +689,9 @@ local function runSUNCTest()
         
         -- If no results were captured, show completion
         if testResults.passed + testResults.failed == 0 then
-            updateProgress(72, 72)
+            updateProgress(90, 90)
             progressText.Text = "100%"
-            progressSubtext.Text = "72/72"
+            progressSubtext.Text = "90/90"
             print("✅ Test completed - check console for detailed results")
         end
     end)
