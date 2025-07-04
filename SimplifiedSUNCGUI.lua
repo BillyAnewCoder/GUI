@@ -452,6 +452,11 @@ local logsCorner = Instance.new("UICorner")
 logsCorner.CornerRadius = UDim.new(0, 8)
 logsCorner.Parent = logsContainer
 
+-- Forward declare functions
+local addConsoleLog
+local updateProgress
+local updateStats
+
 -- Console output capture
 local originalPrint = print
 local consoleOutput = {}
@@ -504,7 +509,7 @@ local function addButtonAnimations(button, normalColor, hoverColor)
 end
 
 -- Update progress animation
-local function updateProgress(current, total)
+updateProgress = function(current, total)
     local percentage = math.floor((current / total) * 100)
     currentProgress = percentage
     
@@ -520,14 +525,14 @@ local function updateProgress(current, total)
 end
 
 -- Update statistics
-local function updateStats()
+updateStats = function()
     statCards.passed.Text = tostring(testResults.passed)
     statCards.timeout.Text = tostring(testResults.timeout)
     statCards.failed.Text = tostring(testResults.failed)
 end
 
 -- Add console log to GUI
-local function addConsoleLog(message)
+addConsoleLog = function(message)
     local logFrame = Instance.new("Frame")
     logFrame.Name = "LogEntry" .. #functionLogs
     logFrame.Size = UDim2.new(1, -10, 0, 30)
